@@ -95,6 +95,7 @@ body {
 }
 
 .QuizContainer_Answers {
+  cursor: pointer;
   color: white;
   font-size: 30px;
   text-align: center;
@@ -102,6 +103,14 @@ body {
   background-color: black;
   width: 50%;
   height: 50%;
+}
+
+.QuizContainer_Answers:active {
+  background-color: rgb(255, 145, 0);
+}
+
+.QuizContainer_Answers:hover {
+  background-color: rgb(255, 145, 0);
 }
 
 @media only screen and (min-width: 480px) and (orientation: landscape) {

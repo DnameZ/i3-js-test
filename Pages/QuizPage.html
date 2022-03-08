@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script defer src="../Scripts/QuizScript.js"></script>
   <meta charset="UTF-8">
   <link href="../Styles/QuizStyle.css" rel="stylesheet" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,25 +13,25 @@
 <body>
   <div  class="Navigation">
     <div class="Navigation_Container">
-      <button class="Navigation_Buttons">Previous</button>
+      <button id="PreviousButton" class="Navigation_Buttons">Previous</button>
 
       <div class="Navigation_SlideBar">
-        <button class="Navigation_Button">1</button>
+        <button id="Navigation_Button1" class="Navigation_Button">1</button>
       </div>
 
       <div class="Navigation_SlideBar">
-        <button class="Navigation_Button">2</button>
+        <button id="Navigation_Button2" class="Navigation_Button">2</button>
       </div>
 
       <div class="Navigation_SlideBar">
-        <button class="Navigation_Button">3</button>
+        <button id="Navigation_Button3" class="Navigation_Button">3</button>
       </div>
 
       <div class="Navigation_SlideBar">
-        <button class="Navigation_Button">4</button>
+        <button id="Navigation_Button4" class="Navigation_Button">4</button>
       </div>
 
-      <button class="Navigation_Buttons">Next</button>  
+      <button id="NextButton" class="Navigation_Buttons">Next</button>  
     </div>
   </div>
 
@@ -38,18 +39,18 @@
     <div class="QuizContainer_Quiz">
 
       <div class="QuizContainer_Question">
-        <h1>Koliko je 2+2</h1>
+        <h1 id="Question">Koliko je 2+2</h1>
       </div>
 
       <div class="QuizContainer_AnswersContianer">
-        <div class="QuizContainer_Answers">1</div>
-        <div class="QuizContainer_Answers">2</div>
-        <div class="QuizContainer_Answers">3</div>
-        <div class="QuizContainer_Answers">4</div>
-        <div class="QuizContainer_Answers">5</div>
-        <div class="QuizContainer_Answers">6</div>
-        <div class="QuizContainer_Answers">7</div>
-        <div class="QuizContainer_Answers">8</div>
+        <button  id="First_Answer" class="QuizContainer_Answers">1</button>
+        <button  id="Second_Answer" class="QuizContainer_Answers">2</button>
+        <button  id="Third_Answer" class="QuizContainer_Answers">3</button>
+        <button  id="Fourth_Answer" class="QuizContainer_Answers">4</button>
+        <button  id="Fifth_Answer" class="QuizContainer_Answers">5</button>
+        <button  id="Sixth_Answer" class="QuizContainer_Answers">6</button>
+        <button  id="Seventh_Answer" class="QuizContainer_Answers">7</button>
+        <button  id="Eigth_Answer" class="QuizContainer_Answers">8</button>
       </div>
     </div>
   </div>
