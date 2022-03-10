@@ -143,8 +143,9 @@ function setActiveButton(button)
   // ako je 
   if(AnsweredQuestion[curQuestion-1].checked[button.numberOfQuestion]==false)
   {
+    let maxAllowedQuestions=curQuestion+2;
     if(AnsweredQuestion[curQuestion-1].allowedAnsweres<=AnsweredQuestion[curQuestion-1].answered)
-      ShowAlertMsg("Limit for answers is" + " " + (curQuestion+2) + " " + "answers");
+      ShowAlertMsg("Limit for answers is" + " " + maxAllowedQuestions + " " + "answers");
     else
     {
       AnsweredQuestion[curQuestion-1].answered+=1;
@@ -176,6 +177,8 @@ function setActiveButton(button)
     Slides[curQuestion-1].style.backgroundColor="black";
 }
 
+/// Ova funkcija služi kako bi na svaki klik na next ili prev button da se curQuestion uveća za jedan ili smanji, u slučaju da se na pitanje klikne
+// direktno na slajd onda curQuestion poprimi vrijednost iz slajda
 function IncrementOrDecrementQuestion(operation)
 {
   switch(operation)

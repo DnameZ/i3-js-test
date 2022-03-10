@@ -9,8 +9,9 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 30px;
-  width: 15%;
-  height: 15%;
+  width: 60%;
+  text-align: center;
+  height: 25%;
   background-color: rgba(255, 35, 35, 0.383);
   position: absolute;
 }
@@ -132,12 +133,13 @@ body {
 }
 
 .ShowMoreContainer_Button {
+  color: white;
   outline: none;
-  font-size: 30px;
+  font-size: 20px;
   align-self: center;
   cursor: pointer;
-  width: 30%;
-  height: 50%;
+  width: 50%;
+  height: 80%;
   border: 2px solid rgb(255, 145, 0);
   background-color: black;
 }
@@ -167,6 +169,10 @@ body {
 
   .QuizContainer_Answers {
     font-size: 70px;
+  }
+  .alertWindow {
+    width: 30%;
+    height: 30%;
   }
 }
 
@@ -203,6 +209,10 @@ body {
 
   .QuizContainer_Answers {
     font-size: 70px;
+  }
+  .alertWindow {
+    width: 15%;
+    height: 15%;
   }
 }
 
@@ -259,5 +269,11 @@ body {
 
   .QuizContainer_Answers {
     font-size: 50px;
+  }
+
+  .ShowMoreContainer_Button {
+    font-size: 30px;
+    width: 30%;
+    height: 50%;
   }
 }
