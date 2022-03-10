@@ -64,7 +64,6 @@ const Questions=
     question : "Pitanje 4"
   }
 ]
-
 let AnswersEachSlide = [];
 
 ("Events")
@@ -81,6 +80,7 @@ window.onload = function() {
   QuizQuestion.innerText=Questions[curQuestion-1].question;
 };
 
+
 function ShowAlertMsg(msg)
 {
   alertMsg.innerText=msg;
@@ -89,6 +89,8 @@ function ShowAlertMsg(msg)
 
   setTimeout(()=>{alertContainer.style.display="none"},3000);
 }
+
+///Da skratim linije koda od dodavanja eventListenera.
 function addEventClickToAnswers()
 {
   Answers.forEach(answer => {
@@ -100,6 +102,7 @@ function addEventClickToAnswers()
   })
 }
 
+///Da se klikom na slide se promjeni pitanje, i da se mapiraju.
 function ActivateSlide(slide)
 {
   curQuestion=slide.innerText;
@@ -107,12 +110,14 @@ function ActivateSlide(slide)
   MapAnswers();
   CheckForCurQuestion();
 
+  ///Provjera da li je bar jedan odgovor prisutan na svim pitanjima.
   if(AnsweredQuestion.every(answer=>answer.answered >= 1))
       ShowMore.disabled=false;
   else
       ShowMore.disabled=true;
 }
 
+///Paljenje i gasenje NextButton-a,PrevButton-a i ShowMoreButton-a po potrebi.
 function CheckForCurQuestion()
 {
   if(curQuestion==1)
@@ -129,12 +134,13 @@ function CheckForCurQuestion()
   {
     NextButton.style.display="flex";
     ShowMore.style.display="none";
-  }
-    
+  } 
 }
 
 function setActiveButton(button)
 {
+  ///Kada se klikne na odgovor na pojedinom pitanju prvo ide provjera da li je tom button-u/odgovoru property checked false 
+  // ako je 
   if(AnsweredQuestion[curQuestion-1].checked[button.numberOfQuestion]==false)
   {
     if(AnsweredQuestion[curQuestion-1].allowedAnsweres<=AnsweredQuestion[curQuestion-1].answered)
@@ -152,7 +158,6 @@ function setActiveButton(button)
       ShowMore.disabled=true;
       
   }
-  
   else
   {
     AnsweredQuestion[curQuestion-1].answered-=1;
@@ -193,6 +198,7 @@ function IncrementOrDecrementQuestion(operation)
       ShowMore.disabled=true;
 }
 
+/// U ovoj funkciji dobivamo random broj od 2-8 za svaki slajd koji reprezentiraju broj odgovora za svaki slajd. Te se ti brojevi pushaju u novi array.
 function ReturnRandomNumOfAns()
 {
   Slides.forEach(slide => {  
@@ -202,6 +208,9 @@ function ReturnRandomNumOfAns()
   MapAnswers();
 }
 
+/// Ova funkcija mapira odgovore, odnosno dobije random broj odgovora od 2-8, pa se prvo kreće od broja koji je poslje zadnjeg, npr. ako smo dobili broj 3 
+/// ovaj loop ce krenuti od 4 i krenuti na dalje 5,6,7,8 i njih postaviti kao display=none;, te ova petlja kreće od 0 i ide do 3 i stavlje odgovore kao display=block
+///odnosno vidljive. Te se odrađuje provjera da li su ti odgovori checkani prije ako jesu stavi ih se kao oznacene.
 function MapAnswers()
 {
   for(let i = AnswersEachSlide[curQuestion-1]; i<Answers.length; i++)
