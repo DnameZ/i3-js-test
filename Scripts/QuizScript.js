@@ -140,7 +140,9 @@ function CheckForCurQuestion()
 function setActiveButton(button)
 {
   ///Kada se klikne na odgovor na pojedinom pitanju prvo ide provjera da li je tom button-u/odgovoru property checked false 
-  // ako je 
+  // ako je button ne oznacen onda se prvo provjeri uvjet da li trenutni odgvoreni odgovori prelaze granicu 2+n, ako da onda se pojavi alertMsg.
+  // ako jos stane odgovora u ograničenje button poprimi drugi bgColor, checked se stavi na true te se pribriji u answered
+  // također na svaki klik provjeravam da li svaki slajd ima bar jedan odgovor ako ima, stavi showMore.disabled na false
   if(AnsweredQuestion[curQuestion-1].checked[button.numberOfQuestion]==false)
   {
     let maxAllowedQuestions=curQuestion+2;
