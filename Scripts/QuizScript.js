@@ -1,6 +1,7 @@
 ("Buttons_Navigation")
 const NextButton=document.getElementById("NextButton");
 const PreviousButton=document.getElementById("PreviousButton");
+const ShowMore=document.getElementById("ShowMore");
 
 ("Quiz_Question")
 const QuizQuestion=document.getElementById("Question");
@@ -21,8 +22,13 @@ const SecondSlide=document.getElementById("Navigation_Button2");
 const ThirdSlide=document.getElementById("Navigation_Button3");
 const FourthSlide=document.getElementById("Navigation_Button4");
 
+("AlertMsg")
+const alertContainer=document.getElementById("alertMsg_Container");
+const alertMsg=document.getElementById("alertMsg");
+
 ("QuestionCounter")
 let curQuestion;
+let allAreAnswered=false;
 
 ("DataToWorkWith")
 const Answers = 
@@ -35,7 +41,7 @@ const Answers =
 
 const AnsweredQuestion = 
 [
-  { checked :[false,false,false,false,false,false,false,false],allowedAnsweres : 3, answered:0},
+  { checked :[false,false,false,false,false,false,false,false],allowedAnsweres : 3, answered: 0},
   { checked :[false,false,false,false,false,false,false,false],allowedAnsweres : 4, answered:0},
   { checked :[false,false,false,false,false,false,false,false],allowedAnsweres : 5, answered:0},
   { checked :[false,false,false,false,false,false,false,false],allowedAnsweres : 6, answered:0},
@@ -67,19 +73,64 @@ PreviousButton.addEventListener("click",()=>IncrementOrDecrementQuestion("-"));
 
 ("UseEffect_WannaBe")
 window.onload = function() {
+  alertContainer.style.display="none";
   curQuestion=1;
-  possibleAnswers=2+curQuestion;
+  CheckForCurQuestion();
   addEventClickToAnswers();
   ReturnRandomNumOfAns();
   QuizQuestion.innerText=Questions[curQuestion-1].question;
 };
 
+function ShowAlertMsg(msg)
+{
+  alertMsg.innerText=msg;
 
+  alertContainer.style.display="flex";
+
+  setTimeout(()=>{alertContainer.style.display="none"},3000);
+}
 function addEventClickToAnswers()
 {
   Answers.forEach(answer => {
     answer.answer.addEventListener("click",()=>setActiveButton(answer));
   });
+
+  Slides.forEach(slide => {
+    slide.addEventListener("click",()=>ActivateSlide(slide));
+  })
+}
+
+function ActivateSlide(slide)
+{
+  curQuestion=slide.innerText;
+  QuizQuestion.innerText=Questions[curQuestion-1].question;
+  MapAnswers();
+  CheckForCurQuestion();
+
+  if(AnsweredQuestion.every(answer=>answer.answered >= 1))
+      ShowMore.disabled=false;
+  else
+      ShowMore.disabled=true;
+}
+
+function CheckForCurQuestion()
+{
+  if(curQuestion==1)
+    PreviousButton.style.display="none";
+  else
+    PreviousButton.style.display="block";
+
+  if(curQuestion==4)
+  {
+    NextButton.style.display="none";
+    ShowMore.style.display="inline-block";
+  }  
+  else
+  {
+    NextButton.style.display="flex";
+    ShowMore.style.display="none";
+  }
+    
 }
 
 function setActiveButton(button)
@@ -87,21 +138,37 @@ function setActiveButton(button)
   if(AnsweredQuestion[curQuestion-1].checked[button.numberOfQuestion]==false)
   {
     if(AnsweredQuestion[curQuestion-1].allowedAnsweres<=AnsweredQuestion[curQuestion-1].answered)
-      window.alert("nope");
+      ShowAlertMsg("Limit for answers is" + " " + (curQuestion+2) + " " + "answers");
     else
     {
-      AnsweredQuestion[curQuestion-1].answered++;
+      AnsweredQuestion[curQuestion-1].answered+=1;
       AnsweredQuestion[curQuestion-1].checked[button.numberOfQuestion]=true;
       button.answer.style.backgroundColor="rgb(255, 145, 0)";
-      console.log(AnsweredQuestion[curQuestion-1].answered);
     }
-  }
-  else
-  {
-    AnsweredQuestion[curQuestion-1].checked[button.numberOfQuestion]=false;
-    button.answer.style.backgroundColor="black";
+
+    if(AnsweredQuestion.every(answer=>answer.answered >= 1))
+      ShowMore.disabled=false;
+    else
+      ShowMore.disabled=true;
+      
   }
   
+  else
+  {
+    AnsweredQuestion[curQuestion-1].answered-=1;
+    AnsweredQuestion[curQuestion-1].checked[button.numberOfQuestion]=false;
+    button.answer.style.backgroundColor="black";
+
+    if(AnsweredQuestion.every(answer=>answer.answered >= 1))
+      ShowMore.disabled=false;
+    else
+      ShowMore.disabled=true;
+  }
+
+  if(AnsweredQuestion[curQuestion-1].answered>=1)
+    Slides[curQuestion-1].style.backgroundColor="rgb(255, 145, 0)";
+  else
+    Slides[curQuestion-1].style.backgroundColor="black";
 }
 
 function IncrementOrDecrementQuestion(operation)
@@ -118,7 +185,12 @@ function IncrementOrDecrementQuestion(operation)
   }
   QuizQuestion.innerText=Questions[curQuestion-1].question;
   MapAnswers();
-  possibleAnswers=2+curQuestion;
+  CheckForCurQuestion();
+
+  if(AnsweredQuestion.every(answer=>answer.answered >= 1))
+      ShowMore.disabled=false;
+  else
+      ShowMore.disabled=true;
 }
 
 function ReturnRandomNumOfAns()
